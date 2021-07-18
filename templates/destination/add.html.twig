@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block title %}Add Destination{% endblock %}
+{% block header %}
+    <div class="row row-mt-15em">
+
+    <div class="col-md-12 mt-text animate-box" data-animate-effect="fadeInUp">
+        <h1>Add New Destination</h1>
+    </div>
+
+</div>
+{% endblock %}
+{% block body %}
+    {% if app.user %}
+        {% if app.user.getRoles()[0]!="admin" %}
+            <script> window.location.href ="{{ path('index')}}"</script>
+        {% endif %}
+    {% else %}
+        <script> window.location.href ="{{ path('index')}}"</script>
+    {% endif %}
+    <div >
+        <div class="gtco-container border-bottom">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                    <h2>New Destination</h2>
+                </div>
+            </div>
+            <div class="form-wrap">
+                <div class="tab">
+                    {{ form_start(DestinationFormType) }}
+                    <div class="tab-content">
+                        <div class="tab-content-inner active" data-content="signup">
+                            <form action="#">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label >Ville</label>
+                                        {{ form_widget(DestinationFormType.ville, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label for="destination">Pays</label>
+                                        {{ form_widget(DestinationFormType.pays, {'attr': {'class': 'form-control'}}) }}
+
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label>Description</label>
+                                        {{ form_widget(DestinationFormType.description, {'attr': {'class': 'form-control'}})}}
+
+
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label>Image File  </label>
+                                        {{ form_widget(DestinationFormType.photoFile, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" class="btn btn-primary btn-block" value="Submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {{ form_end(DestinationFormType) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+

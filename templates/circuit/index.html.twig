@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CircuitController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+        <h1>List Circuit</h1>
+        <table  >
+            <tr><th>Id</th><th>Description</th><th>Ville Depart</th><th>Ville Arrivee </th><th>Durée </th><th>Prix </th><th>Date depart </th><th>Number de participants </th></tr>
+            <tr {% for c in circuits %}>
+                <td>{{ c.id }}</td>
+                <td>{{ c.description }} </td>
+                <td>{{ c.villedepart }} </td>
+                <td>{{ c.villearrivee }} </td>
+                <td>{{ c.duree }} </td>
+                <td>{{ c.prix }} </td>
+                <td>{{ c.datedepart}} </td>
+                <td>{{ c.nbparticipants}} </td>
+            </tr {% endfor %}>
+
+        </table>
+    {{ dump(circuits) }}
+
+</div>
+{% endblock %}

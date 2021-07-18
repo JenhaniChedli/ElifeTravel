@@ -1,0 +1,15 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+Circuit:
+    path: /cicruit
+    controller: App\Controller\CircuitController::index
+Login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+Register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+RegisterAdmin:
+    path: /registeradmin
+    controller: App\Controller\RegistrationController::registeradmin

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block header %} <div class="row row-mt-15em">
+    <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+        <h1>Add New Client ?</h1>
+    </div>
+</div>{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    {% if app.user %}
+        <script> window.location.href ="{{ path('index')}}"</script>
+    {% endif %}
+    <div >
+        <div class="gtco-container border-bottom">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                    <h2>Register</h2>
+                </div>
+            </div>
+            <div class="form-wrap">
+                <div class="tab">
+                    {{ form_start(registrationForm) }}
+                    <div class="tab-content">
+                        <div class="tab-content-inner active" data-content="signup">
+                            <form action="#">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label >User Name</label>
+                                        {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label for="destination">Email</label>
+                                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label>Password</label>
+                                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}})}}
+
+
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label>Agree terms  :  </label>
+                                        {{ form_widget(registrationForm.agreeTerms) }}
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" class="btn btn-primary btn-block" value="Submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {{ form_end(registrationForm) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

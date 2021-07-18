@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destination!{% endblock %}
+{% block header %}
+    <div class="row row-mt-15em">
+    <div class="col-md-12 mt-text animate-box" data-animate-effect="fadeInUp">
+        <h1>Destination</h1>
+    </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="gtco-section">
+        <div class="gtco-container border-bottom">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                    <h2>Trip With Your Favourite Destination</h2>
+                    <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for d in destinations %}
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="fh5co-card-item ">
+                            <a href="{{ asset('uploads/'~d.photo) }}" class="image-popup" >
+                                <figure>
+                                    <div class="overlay"><i class="ti-plus"></i></div>
+                                    <img src="{{ asset('uploads/'~d.photo) }}" alt="Image" class="img-responsive">
+                                </figure>
+                            </a>
+                            <div class="fh5co-text" >
+                                <h2>{{d.ville|capitalize }}, {{d.pays|capitalize }}</h2>
+                                <p>{{d.description|slice(0, 75)}} ...</p>
+                                <a><span class="btn btn-primary">Schedule a Trip</span></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
