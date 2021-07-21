@@ -5299,12 +5299,12 @@ button.list-group-item-danger.active:focus {
 
 .close {
   float: right;
-  font-size: 21px;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 700;
   line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
-  opacity: 0.2;
+  opacity: .5;
   filter: alpha(opacity=20);
 }
 .close:hover, .close:focus {

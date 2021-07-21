@@ -1,9 +1,9 @@
 index:
     path: /
     controller: App\Controller\DefaultController::index
-Circuit:
-    path: /cicruit
-    controller: App\Controller\CircuitController::index
+Index:
+    path: /index
+    controller: App\Controller\DefaultController::index
 Login:
     path: /login
     controller: App\Controller\SecurityController::login
@@ -13,3 +13,9 @@ Register:
 RegisterAdmin:
     path: /registeradmin
     controller: App\Controller\RegistrationController::registeradmin
+AddDestinationPage:
+    path: /destination/add
+    controller: App\Controller\DestinationController::addDestination
+Update_destination:
+    path: /destination/update
+    controller: App\Controller\DestinationController::update_destination

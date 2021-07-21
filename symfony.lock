@@ -2,6 +2,9 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
+    "components/font-awesome": {
+        "version": "5.15.3"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
