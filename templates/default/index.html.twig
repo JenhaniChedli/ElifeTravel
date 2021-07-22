@@ -6,57 +6,6 @@
         <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
             <h1>Planing Trip To Anywhere in The World?</h1>
         </div>
-        <div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
-            <div class="form-wrap">
-                <div class="tab">
-
-                    <div class="tab-content">
-                        <div class="tab-content-inner active" data-content="signup">
-                            <h3>Book Your Trip</h3>
-                            <form action="#">
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label for="activities">Activities</label>
-                                        <select name="#" id="activities" class="form-control">
-                                            <option value="">Activities</option>
-                                            <option value="">Hiking</option>
-                                            <option value="">Caving</option>
-                                            <option value="">Swimming</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label for="destination">Destination</label>
-                                        <select name="#" id="destination" class="form-control">
-                                            <option value="">Philippines</option>
-                                            <option value="">USA</option>
-                                            <option value="">Australia</option>
-                                            <option value="">Singapore</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label for="date-start">Date Travel</label>
-                                        <input type="text" id="date-start" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <input type="submit" class="btn btn-primary btn-block" value="Submit">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 {% endblock %}
 {% block body %}
@@ -81,7 +30,7 @@
                             <div class="fh5co-text" >
                                 <h2>{{d.ville|capitalize }}, {{d.pays|capitalize }}</h2>
                                 <p>{{d.description|slice(0, 75)}} ...</p>
-                                <p><span class="btn btn-primary">Schedule a Trip</span></p>
+                                <a href="/destination/details/{{ d.id }}"><span class="btn btn-primary">Details</span></a>
                             </div>
                         </div>
                     </div>

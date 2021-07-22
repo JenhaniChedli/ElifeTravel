@@ -18,7 +18,7 @@ class DestinationController extends AbstractController
     public function index(): Response
     {
         $em=$this->getDoctrine();
-        $destinations=$em->getRepository(Destination::class)->findAll();
+        $destinations=$em->getRepository(Destination::class)->findOneBydatedepart();
         return $this->render('destination/index.html.twig', [
             'controller_name' => 'DestinationController',
             'destinations'=> $destinations,
@@ -108,5 +108,17 @@ class DestinationController extends AbstractController
         $response = new Response();
         $response->send();
         return $this->getDestination();
+    }
+    /**
+     * @Route("/destination/details/{id}", name="detailsdestination")
+     */
+    public function getdestinationbyid(Request $request, $id): Response
+    {
+        $destination = new Destination();
+        $destination = $this->getDoctrine()->getRepository(Destination::class)->find($id);
+
+        return $this->render('destination/details.html.twig', array(
+            'destination'=>$destination
+        ));
     }
 }

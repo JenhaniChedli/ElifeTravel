@@ -3,7 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\DestinationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=DestinationRepository::class)
@@ -36,6 +40,36 @@ class Destination
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $Hotel;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Duree;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Prix;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $datedepart;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="destinations")
+     */
+    private $participtions;
+
+    public function __construct()
+    {
+        $this->participtions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +120,79 @@ class Destination
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getHotel(): ?string
+    {
+        return $this->Hotel;
+    }
+
+    public function setHotel(string $Hotel): self
+    {
+        $this->Hotel = $Hotel;
+
+        return $this;
+    }
+
+    public function getDuree(): ?int
+    {
+        return $this->Duree;
+    }
+
+    public function setDuree(int $Duree): self
+    {
+        $this->Duree = $Duree;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->Prix;
+    }
+
+    public function setPrix(int $Prix): self
+    {
+        $this->Prix = $Prix;
+
+        return $this;
+    }
+
+    public function getDatedepart(): ?\DateTimeInterface
+    {
+        return $this->datedepart;
+    }
+
+    public function setDatedepart(\DateTimeInterface $datedepart): self
+    {
+
+        $this->datedepart = $datedepart;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getParticiptions(): Collection
+    {
+        return $this->participtions;
+    }
+
+    public function addParticiption(User $particiption): self
+    {
+        if (!$this->participtions->contains($particiption)) {
+            $this->participtions[] = $particiption;
+        }
+
+        return $this;
+    }
+
+    public function removeParticiption(User $particiption): self
+    {
+        $this->participtions->removeElement($particiption);
 
         return $this;
     }

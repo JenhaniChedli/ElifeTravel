@@ -24,6 +24,10 @@
         <th>#</th>
         <th>Ville</th>
         <th>Pays</th>
+        <th>Hotel</th>
+        <th>Duree</th>
+        <th>Prix</th>
+        <th>Date depart</th>
         <th>Description</th>
         <th>Photo</th>
         <th>Update</th>
@@ -42,6 +46,18 @@
             </td>
             <td>
                 {{ d.pays }}
+            </td>
+            <td>
+                {{ d.Hotel }}
+            </td>
+            <td>
+                {{ d.Duree }}
+            </td>
+            <td>
+                {{ d.Prix }}
+            </td>
+            <td>
+                {{ d.datedepart|date('d-m-Y') }}
             </td>
             <td>
                 {{ d.description }}

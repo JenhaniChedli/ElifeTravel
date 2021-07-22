@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,6 +47,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=30)
      */
     private $username;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Destination::class, mappedBy="participtions")
+     */
+    private $destinations;
+
+    public function __construct()
+    {
+        $this->destinations = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -145,4 +159,33 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Destination[]
+     */
+    public function getDestinations(): Collection
+    {
+        return $this->destinations;
+    }
+
+    public function addDestination(Destination $destination): self
+    {
+        if (!$this->destinations->contains($destination)) {
+            $this->destinations[] = $destination;
+            $destination->addParticiption($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDestination(Destination $destination): self
+    {
+        if ($this->destinations->removeElement($destination)) {
+            $destination->removeParticiption($this);
+        }
+
+        return $this;
+    }
+
+
 }

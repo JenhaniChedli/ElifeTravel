@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destination!{% endblock %}
+{% block header %}
+    <div class="row row-mt-15em">
+        <div class="col-md-12 mt-text animate-box" data-animate-effect="fadeInUp">
+            <h1>{{ destination.ville|capitalize }}, {{destination.pays|capitalize }}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="gtco-section">
+        <div class="gtco-container border-bottom">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                    <h2>{{ destination.Hotel|capitalize }}</h2>
+                    <p>{{ destination.description }}</p>
+                </div>
+            </div>
+            <div class="gtco-section border-bottom">
+                <div class="gtco-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 animate-box">
+                                <h3>Photo</h3>
+                                <img src="{{ asset('uploads/'~destination.photo) }}" alt="Image" class="img-responsive">
+                            </div>
+                            <div class="col-md-5 col-md-push-1 animate-box">
+
+                                <div class="gtco-contact-info">
+                                    <h3>Détails</h3>
+                                    <ul>
+                                        <li >Durée :  {{ destination.Duree }}  {% if destination.Duree>1 %}
+                                        Jours
+                                            {% else %}
+                                            Jour
+                                            {% endif %}
+                                        </li>
+                                        <li >Prix : {{ destination.Prix }} Dinars</li>
+                                        <li >Date depart : {{ destination.datedepart|date('d-m-Y') }}</li>
+                                        <li ><a href=""><span class="btn btn-primary">Participe</span></a></li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

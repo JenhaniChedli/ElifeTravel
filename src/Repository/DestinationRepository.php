@@ -17,34 +17,27 @@ class DestinationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Destination::class);
+
+
+
     }
 
     // /**
     //  * @return Destination[] Returns an array of Destination objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+
+
+
+
+    public function findOneBydatedepart()
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('d.datedepart >:val')
+            ->setParameter('val', new \Datetime(date('d-m-Y')))
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Destination
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

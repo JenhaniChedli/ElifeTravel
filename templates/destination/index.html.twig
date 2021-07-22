@@ -31,7 +31,7 @@
                             <div class="fh5co-text" >
                                 <h2>{{d.ville|capitalize }}, {{d.pays|capitalize }}</h2>
                                 <p>{{d.description|slice(0, 75)}} ...</p>
-                                <a><span class="btn btn-primary">Schedule a Trip</span></a>
+                                <a href="/destination/details/{{ d.id }}"><span class="btn btn-primary">Details</span></a>
                             </div>
                         </div>
                     </div>
