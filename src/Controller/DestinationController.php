@@ -135,6 +135,7 @@ class DestinationController extends AbstractController
         if($tt[0][1]==0){
             $particiption->setIdUser($idU);
             $particiption->setIdDestination($idD);
+            $particiption->setPayment(false);
             $em=$this->getDoctrine()->getManager();
             $em->persist($particiption);
             $em->flush();
@@ -153,10 +154,42 @@ class DestinationController extends AbstractController
         $destination = $this->getDoctrine()->getRepository(Destination::class)->find($idD);
         $participtions= $this->getDoctrine()->getRepository(Participtions::class)->getparticiptionsbydestination($idD);
         $users= $this->getDoctrine()->getRepository(User::class)->findparticiption($participtions);
-
-
+        $data = array();
+        foreach ($users as $key => $val ) {
+            foreach ($val as $key1 => $val1 ) {
+                $data[$key1]=$val1;
+            }
+        }
+        $dt = array();
+        foreach ($data as $key => $val ) {
+            $dt[$key]=$val;
+            foreach ($participtions as $key2 => $val2) {
+                if ($val2['idUser']==$val) {
+                    $dt['payment']=$val2['payment'];
+                }
+            }
+        }
+        $user=array($dt);
         return $this->render('destination/participtions.html.twig', array(
-            'users'=>$users,'destination'=>$destination
+            'users'=>$user ,'destination'=>$destination
         ));
+    }
+    /**
+     * @Route("/particiption/paid/{idD}/{idU}", name="paidparticiption")
+     */
+    public function paidparticiption(Request $request,$idD,$idU)
+    {
+        $particiption = new Participtions();
+        $particiption= $this->getDoctrine()->getRepository(Participtions::class)->getparticiptionsbyids($idD,$idU);
+        if($particiption[0]->getPayment()){
+            $particiption[0]->setPayment(false);
+        }else{
+            $particiption[0]->setPayment(true);
+        }
+
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($particiption[0]);
+        $em->flush();
+        return $this->redirect("/destination/get");
     }
 }

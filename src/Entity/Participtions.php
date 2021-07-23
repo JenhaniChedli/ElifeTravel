@@ -27,6 +27,11 @@ class Participtions
      */
     private $idDestination;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $payment;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Participtions
     public function setIdDestination(int $idDestination): self
     {
         $this->idDestination = $idDestination;
+
+        return $this;
+    }
+
+    public function getPayment(): ?bool
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(bool $payment): self
+    {
+        $this->payment = $payment;
 
         return $this;
     }

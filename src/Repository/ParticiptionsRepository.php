@@ -37,13 +37,22 @@ class ParticiptionsRepository extends ServiceEntityRepository
     public function getparticiptionsbydestination($value)
     {
         return $this->createQueryBuilder('p')
-            ->select('p.idUser')
+            ->select('p.idUser ,p.payment')
             ->andWhere('p.idDestination = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getResult();
     }
-
+    public function getparticiptionsbyids($value,$val)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.idDestination = :val')
+            ->andWhere('p.idUser = :val1')
+            ->setParameter('val', $value)
+            ->setParameter('val1', $val)
+            ->getQuery()
+            ->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Participtions
     {
