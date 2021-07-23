@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Destination;
+use App\Entity\Participtions;
+use App\Entity\User;
 use App\Form\DestinationType;
 use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -118,7 +120,43 @@ class DestinationController extends AbstractController
         $destination = $this->getDoctrine()->getRepository(Destination::class)->find($id);
 
         return $this->render('destination/details.html.twig', array(
-            'destination'=>$destination
+            'destination'=>$destination,'testparticipe'=>0
+        ));
+    }
+    /**
+     * @Route("/destination/participe/{idU}/{idD}", name="participe")
+     */
+    public function participe(Request $request, $idU,$idD): Response
+    {
+        $destination = new Destination();
+        $destination = $this->getDoctrine()->getRepository(Destination::class)->find($idD);
+        $particiption= new Participtions();
+        $tt = $this->getDoctrine()->getRepository(Participtions::class)->validationdeparticiption($idU,$idD);
+        if($tt[0][1]==0){
+            $particiption->setIdUser($idU);
+            $particiption->setIdDestination($idD);
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($particiption);
+            $em->flush();
+        }
+
+        return $this->render('destination/details.html.twig', array(
+            'testparticipe'=>$tt[0][1],'destination'=>$destination
+        ));
+    }
+    /**
+     * @Route("/particiption/get/{idD}", name="getparticiptions")
+     */
+    public function getparticiptions(Request $request,$idD): Response
+    {
+        $destination = new Destination();
+        $destination = $this->getDoctrine()->getRepository(Destination::class)->find($idD);
+        $participtions= $this->getDoctrine()->getRepository(Participtions::class)->getparticiptionsbydestination($idD);
+        $users= $this->getDoctrine()->getRepository(User::class)->findparticiption($participtions);
+
+
+        return $this->render('destination/participtions.html.twig', array(
+            'users'=>$users,'destination'=>$destination
         ));
     }
 }

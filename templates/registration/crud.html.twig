@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User!{% endblock %}
+{% block header %}
+    <div class="row row-mt-15em">
+        <div class="col-md-12 mt-text animate-box" data-animate-effect="fadeInUp">
+            <h1>Tableau de board "User"</h1>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title" style="float: right;">
+                    <a href="{{ path('clientregister')}}" class="btn btn-primary" >
+                        Add Client
+                    </a>
+                    <a href="{{ path('RegisterAdmin')}}" class="btn btn-primary" >
+                        Add Admin
+                    </a>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped" >
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>IsVerified</th>
+                            <th>Role</th>
+                            <th>Active/Desative</th>
+                            <th>Client/Admin</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for d in users %}
+                            <tr >
+                                <td>
+                                    {{ d.id}}
+                                </td>
+                                <td>
+                                    {{ d.username }}
+                                </td>
+                                <td>
+                                    {{ d.email }}
+                                </td>
+                                <td>
+                                    {% if d.isVerified==1 %}
+                                        Active
+                                    {% else %}
+                                        Desative
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ d.roles[0] }}
+                                </td>
+                                <td>
+                                    <a href='/User/desactive/{{ d.id }}'><i class="fa fa-edit"></i></a>
+                                </td>
+                                <td>
+                                    <a href='/User/role/{{ d.id }}'><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

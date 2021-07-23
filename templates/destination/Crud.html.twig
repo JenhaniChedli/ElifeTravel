@@ -30,6 +30,7 @@
         <th>Date depart</th>
         <th>Description</th>
         <th>Photo</th>
+        <th>Participtions</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -64,6 +65,9 @@
             </td>
             <td>
                 {{  d.photo }}
+            </td>
+            <td>
+                <a href='/particiption/get/{{ d.id }}'><i class="fa  fa-eye"></i></a>
             </td>
             <td>
               <a href='/destination/update/{{ d.id }}'><i class="fa fa-edit"></i></a>

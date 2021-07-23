@@ -11,9 +11,6 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-    {% if app.user %}
-        <script> window.location.href ="{{ path('index')}}"</script>
-    {% endif %}
     <div >
         <div class="gtco-container border-bottom">
             <div class="row animate-box">

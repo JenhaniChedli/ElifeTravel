@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -70,7 +71,35 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/registerclient", name="clientregister")
+     */
+    public function registerclient(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->getAllUser();
+        }
+
+        return $this->render('registration/registeradmin.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
     /**
      * @Route("/registeradmin", name="appregister")
      */
@@ -94,7 +123,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('Circuit');
+            return $this->getAllUser();
         }
 
         return $this->render('registration/registeradmin.html.twig', [
@@ -122,5 +151,51 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('Circuit');
+    }
+
+    /**
+     * @Route("/User/get", name="getAllUser")
+     */
+    public function getAllUser(): Response
+    {
+        $em=$this->getDoctrine();
+        $users=$em->getRepository(User::class)->findAll();
+        return $this->render('registration/crud.html.twig', [
+            'users' => $users,
+        ]);
+    }
+    /**
+     * @Route("/User/desactive/{id}", name="desactiveUser")
+     */
+    public function desactive(Request $request,$id): Response
+    {
+        $user =new User();
+        $user=$this->getDoctrine()->getRepository(User::class)->find($id);
+       if( $user->isVerified() ){
+           $user->setIsVerified(false);
+       }else{
+           $user->setIsVerified(true);
+       }
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return $this->getAllUser();
+    }
+    /**
+     * @Route("/User/role/{id}", name="roleUser")
+     */
+    public function updateRole(Request $request,$id): Response
+    {
+        $user =new User();
+        $user=$this->getDoctrine()->getRepository(User::class)->find($id);
+        if( $user->getRoles()[0]=="client" ){
+            $user->setRoles(["admin"]);
+        }else{
+            $user->setRoles(["client"]);
+        }
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return $this->getAllUser();
     }
 }

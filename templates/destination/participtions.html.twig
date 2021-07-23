@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Particiption!{% endblock %}
+{% block header %}
+    <div class="row row-mt-15em">
+        <div class="col-md-12 mt-text animate-box" data-animate-effect="fadeInUp">
+            <h1>Participations</h1>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title" style="float: right;">
+
+                    {% if users|length >0 %}
+                    Numbre de particiption : {{ users|length }}
+                    {% else %}
+                        aucun participations
+                    {% endif %}
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped" >
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for d in users %}
+                            <tr >
+                                <td>
+                                    {{ d.id}}
+                                </td>
+                                <td>
+                                    {{ d.username }}
+                                </td>
+                                <td>
+                                    {{ d.email }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ dump(users) }}
+{% endblock %}

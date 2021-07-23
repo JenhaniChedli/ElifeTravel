@@ -39,7 +39,17 @@
                                         </li>
                                         <li >Prix : {{ destination.Prix }} Dinars</li>
                                         <li >Date depart : {{ destination.datedepart|date('d-m-Y') }}</li>
-                                        <li ><a href=""><span class="btn btn-primary">Participe</span></a></li>
+                                        {% if app.user %}
+                                            {% if testparticipe ==0 %}
+                                        <li ><a href="/destination/participe/{{  app.user.getId() }}/{{  destination.id }}"><span class="btn btn-primary">Participe</span></a></li>
+                                            {% else %}
+                                                <li ><span class="btn btn-primary">Ce deja Participé</span></li>
+                                            {% endif %}
+
+
+                                        {% else %}
+                                            <li ><a href="/login"><span class="btn btn-primary">Sign in </span> Pour participer dans cette destination</a></li>
+                                        {% endif %}
                                     </ul>
                                 </div>
 
